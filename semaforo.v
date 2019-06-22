@@ -62,7 +62,8 @@ module semaforo(input clk, input rst, input bt,
 											B <= B0;
 											count <= 0;
 										end
-							default A <= A0;
+							default :
+									A <= A0;
 									B <= B0;
 						endcase							
 						end
@@ -104,9 +105,10 @@ module semaforo(input clk, input rst, input bt,
 											A <= A0;
 											B <= B0;
 											count <= 0;
-										end
-							
-							default A <= A0; B <= B0;
+										end							
+							default : 
+										A <= A0;
+										B <= B0;
 						endcase
 						end
 
