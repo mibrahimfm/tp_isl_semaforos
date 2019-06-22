@@ -7,10 +7,10 @@ module semaforo(input clk, input rst, input bt,
 
 	localparam A0 = 3'b001,
 						  A1 = 3'b010,
-						  A2 = 3'b100,
+						  A2 = 3'b100;
 	localparam B0 = 3'b001,
 						  B1 = 3'b010,
-						  B2 = 3'b100,	
+						  B2 = 3'b100;	
 						  
 
 	reg[3:0] count;
@@ -35,7 +35,7 @@ module semaforo(input clk, input rst, input bt,
 									else
 										begin
 											A <= A1;
-											B <= B1
+											B <= B1;
 											count <= 0;
 										end
 							A1: if(count < AMARELO)
@@ -62,10 +62,12 @@ module semaforo(input clk, input rst, input bt,
 											B <= B0;
 											count <= 0;
 										end
-							default A <= A0; B <= B0;
+							default A <= A0;
+									B <= B0;
 						endcase							
 						end
 					else
+						begin
 						case(A)
 							A0: if(count < VERDE)
 										begin
@@ -106,5 +108,6 @@ module semaforo(input clk, input rst, input bt,
 							
 							default A <= A0; B <= B0;
 						endcase
+						end
 
 endmodule
