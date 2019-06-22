@@ -1,4 +1,4 @@
-module semaforo(input clk, input rst, input bt,
+	module semaforo(input clk, input rst, input bt,
 	output reg [2:0] A, output reg [2:0] B);
 
 	`define VERDE 8'd1
@@ -116,5 +116,26 @@ module semaforo(input clk, input rst, input bt,
 							end
 						endcase
 						end
+
+		always @(*)
+		begin
+			if(btn == 1)
+				begin
+					case(A)
+						A0: begin A <= 3'b001; B <= 3'b001; end
+						A0: begin A <= 3'b010; B <= 3'b010; end
+						A0: begin A <= 3'b100; B <= 3'b100; end
+						default: begin A <=  3'b100; B <= 3'b100; end
+					endcase
+				end
+			else
+					case(A)
+						A0: begin A <= 3'b001; B <= 3'b001; end
+						A0: begin A <= 3'b010; B <= 3'b001; end
+						A0: begin A <= 3'b100; B <= 3'b001; end
+						default: begin A <=  3'b100; B <= 3'b001; end
+					endcase
+				end
+			
 
 endmodule
