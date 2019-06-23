@@ -14,7 +14,7 @@ module semaforo(input clk, input rst, input bt,
 				if(rst == 1)
 					begin
 						A <= A0;
-
+						B <= B0
 						count <= 0;
 					end
 				else
@@ -66,8 +66,8 @@ module semaforo(input clk, input rst, input bt,
 						end
 					else
 						begin
-						case(B)
-							B0: if(count < VERDE)
+						case(A)
+							A0: if(count < VERDE)
 										begin
 											A <= A0;
 											B <= B0;
@@ -76,10 +76,10 @@ module semaforo(input clk, input rst, input bt,
 									else
 										begin
 											A <= A1;
-											b <= B0;
+											B <= B0;
 											count <= 0;
 										end
-							B1: if(count < AMARELO)
+							A1: if(count < AMARELO)
 										begin
 											A <= A1;
 											B <= B0;
@@ -91,7 +91,7 @@ module semaforo(input clk, input rst, input bt,
 											B <= B0;
 											count <= 0;
 										end								
-							B2: if(count < VERMELHO)
+							A2: if(count < VERMELHO)
 										begin
 											A <= A2;
 											B  <= B0;
@@ -124,12 +124,14 @@ module semaforo(input clk, input rst, input bt,
 					endcase
 				end
 			else
+					begin
 					case(A)
 						A0: begin A <= 3'b001; B <= 3'b001; end
 						A0: begin A <= 3'b010; B <= 3'b001; end
 						A0: begin A <= 3'b100; B <= 3'b001; end
 						default: begin A <=  3'b100; B <= 3'b001; end
 					endcase
+					end
 				end
 			
 
