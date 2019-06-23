@@ -1,17 +1,12 @@
-	module semaforo(input clk, input rst, input bt,
+module semaforo(input clk, input rst, input bt,
 	output reg [2:0] A, output reg [2:0] B);
 
-	`define VERDE 8'd1
+	`define VERDE = 8'd1
 	`define AMARELO 8'd3
 	`define VERMELHO 8'd2
 
-	localparam A0 = 3'b001,
-						  A1 = 3'b010,
-						  A2 = 3'b100;
-	localparam B0 = 3'b001,
-						  B1 = 3'b010,
-						  B2 = 3'b100;	
-						  
+	localparam A0 = 3'b001, A1 = 3'b010, A2 = 3'b100;
+	localparam B0 = 3'b001, B1 = 3'b010, B2 = 3'b100;	
 
 	reg[3:0] count;
 
@@ -50,7 +45,7 @@
 											B <= B2;
 											count <= 0;
 										end								
-							S2: if(count < VERMELHO)
+							A2: if(count < VERMELHO)
 										begin
 											A <= A2;
 											B  <= B2;
@@ -71,8 +66,8 @@
 						end
 					else
 						begin
-						case(A)
-							A0: if(count < VERDE)
+						case(B)
+							B0: if(count < VERDE)
 										begin
 											A <= A0;
 											B <= B0;
@@ -84,7 +79,7 @@
 											b <= B0;
 											count <= 0;
 										end
-							A1: if(count < AMARELO)
+							B1: if(count < AMARELO)
 										begin
 											A <= A1;
 											B <= B0;
@@ -96,7 +91,7 @@
 											B <= B0;
 											count <= 0;
 										end								
-							S2: if(count < VERMELHO)
+							B2: if(count < VERMELHO)
 										begin
 											A <= A2;
 											B  <= B0;
@@ -119,7 +114,7 @@
 
 		always @(*)
 		begin
-			if(btn == 1)
+			if(bt == 1)
 				begin
 					case(A)
 						A0: begin A <= 3'b001; B <= 3'b001; end
