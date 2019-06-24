@@ -8,111 +8,111 @@ module semaforo(input clk, input rst, input bt,
 	reg aux = 0;
 
 	always @(posedge clk or posedge rst)
-				if(rst == 1)
-					begin
-						count <= 0;
-					end
-				else
-				if(bt ==1)
+		if(rst == 1)
+			begin
+				count <= 0;
+			end
+		else
+		if(bt == 1)
+		begin
+			aux <= 1;
+		end
+
+		else
+			if(aux == 0 || (A == A0 && count == `VERMELHO))
 				begin
-					aux <= 1;
-				end
-
-				else
-					if(aux == 0)
-						begin
-						case(A)
-							A2: if(count < `VERDE)
-										begin
-											A <= A2;
-											B <= B2;
-											count <= count + 1;
-										end
-									else
-										begin
-											A <= A1;
-											B <= B2;
-											count <= 0;
-										end
-							A1: if(count < `AMARELO)
-										begin
-											A <= A1;
-											B <= B2;
-											count <= count + 1;
-										end
-									else
-										begin
-											A <= A0;
-											B <= B2;
-											count <= 0;
-										end								
-							A0: if(count < `VERMELHO)
-										begin
-											A <= A0;
-											B <= B2;
-											count <= count + 1;
-										end
-									else
-										begin
-											A <= A2;
-											B <= B2;
-											count <= 0;
-										end
-							
-							default:
-							begin
-								A <= A2;
-								B <= B2;
-							end
-						endcase
-
-						end
-						else begin
-							case(A)
-								A2: if(count < `VERDE)
-											begin
-												A <= A2;
-												B <= B2;
-												count <= count + 1;
-											end
-										else
-											begin
-												A <= A1;
-												B <= B1;
-												count <= 0;
-											end
-								A1: if(count < `AMARELO)
-											begin
-												A <= A1;
-												B <= B1;
-												count <= count + 1;
-											end
-										else
-											begin
-												A <= A0;
-												B = B0;
-												count <= 0;
-											end								
-								A0: if(count < `VERMELHO)
-											begin
-												A <= A0;
-												B = B0;
-												count <= count + 1;
-											end
-										else
-											begin
-												A <= A2;
-												B <= B2;
-												count <= 0;
-												aux = 0;
-											end
-								default: 
+				case(A)
+					A2: if(count < `VERDE)
 								begin
-									A <= A2; 
+									A <= A2;
 									B <= B2;
+									count <= count + 1;
 								end
-							endcase									
+							else
+								begin
+									A <= A1;
+									B <= B2;
+									count <= 0;
+								end
+					A1: if(count < `AMARELO)
+								begin
+									A <= A1;
+									B <= B2;
+									count <= count + 1;
+								end
+							else
+								begin
+									A <= A0;
+									B <= B2;
+									count <= 0;
+								end								
+					A0: if(count < `VERMELHO)
+								begin
+									A <= A0;
+									B <= B2;
+									count <= count + 1;
+								end
+							else
+								begin
+									A <= A2;
+									B <= B2;
+									count <= 0;
+								end
+					
+					default:
+					begin
+						A <= A2;
+						B <= B2;
+					end
+				endcase
+
 				end
+				else begin
+					case(A)
+						A2: if(count < `VERDE)
+									begin
+										A <= A2;
+										B <= B2;
+										count <= count + 1;
+									end
+								else
+									begin
+										A <= A1;
+										B <= B1;
+										count <= 0;
+									end
+						A1: if(count < `AMARELO)
+									begin
+										A <= A1;
+										B <= B1;
+										count <= count + 1;
+									end
+								else
+									begin
+										A <= A0;
+										B = B0;
+										count <= 0;
+									end								
+						A0: if(count < `VERMELHO)
+									begin
+										A <= A0;
+										B = B0;
+										count <= count + 1;
+									end
+								else
+									begin
+										A <= A2;
+										B <= B2;
+										count <= 0;
+										aux = 0;
+									end
+						default: 
+						begin
+							A <= A2; 
+							B <= B2;
+						end
+					endcase									
+		end
 					
 		// always @(*)
 		// begin
