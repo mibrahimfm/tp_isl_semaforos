@@ -58,9 +58,9 @@ module semaforo(input clk, input rst, input bt,
 									end
 									else begin
 									B <= Green;				
+									end
 									A <= Red;
 									count <= 0;
-									end
 								end								
 					Red: if(count < `VERMELHO) begin
 									A <= Red;
