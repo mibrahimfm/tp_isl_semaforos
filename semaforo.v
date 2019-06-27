@@ -9,17 +9,18 @@ module semaforo(input clk, input rst, input bt,
 	always @(posedge bt) begin
 		aux <= 1;
 	end
+	always @(negedge rst)
+	begin
+		A <= Green;
+		B <= Green;
+		count <= 0;
+		aux <=0;
+	end
 
-
-	always @(posedge clk or posedge rst)
-		if(rst == 1)
-			begin
-				count <= 0;
-			end
-		else
+	always @(posedge clk)
 				begin
 				case(A)
-					A2: if(count < `VERDE)
+					Green: if(count < `VERDE)
 								begin
 									A <= Green;
 									B <= Green;
@@ -37,14 +38,15 @@ module semaforo(input clk, input rst, input bt,
 									end
 									count <= 0;
 								end
-					A1: if(count < `AMARELO)
+					Yellow: if(count < `AMARELO)
 								begin
 									A <= Yellow;
 									if(A == B) begin
 										B <= Yellow;
+										aux <= 0;
 									end
 									else begin
-									B <= Green;
+										B <= Green;
 									end
 									count <= count + 1;
 								end
@@ -52,16 +54,19 @@ module semaforo(input clk, input rst, input bt,
 								begin
 									if(A == B) begin
 										B <= Red;
+										aux <= 0;
 									end
 									else begin
 									B <= Green;				
 									A <= Red;
 									count <= 0;
+									end
 								end								
-					A0: if(count < `VERMELHO)
-									A <= Red
+					Red: if(count < `VERMELHO) begin
+									A <= Red;
 									if(A == B) begin
 										B <= Red;
+										aux <= 0;
 									end
 									else begin
 									B <= Green;
